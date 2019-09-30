@@ -31,3 +31,5 @@ yarn run build
 ```
 yarn run start
 ```
+
+> > > NB - ensure your mongo serve is running to enable connection to the database
