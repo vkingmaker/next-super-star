@@ -25,6 +25,9 @@ class MyApp extends App {
   }
 
   render() {
+    {
+      console.log('_app Props', this.props);
+    }
     const { Component, pageProps } = this.props;
     {
       console.log('COMPONENTTTTTT', Component);
@@ -36,7 +39,7 @@ class MyApp extends App {
     return (
       <React.Fragment>
         <Layout>
-          <Component {...pageProps} />
+          <Component />
         </Layout>
         <NProgress color='red' spinner={true} />
       </React.Fragment>

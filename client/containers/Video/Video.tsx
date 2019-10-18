@@ -58,15 +58,17 @@ class Videos extends Component {
           this.setState({
             comments: res.data
           });
-          const selectedVideoComment = this.state.comments.filter(
-            (comment: IFeedback) => {
-              return this.state.selectedVideo._id == comment.videoId;
-            }
-          );
+          if (this.state.selectedVideo) {
+            const selectedVideoComment = this.state.comments.filter(
+              (comment: IFeedback) => {
+                return this.state.selectedVideo._id == comment.videoId;
+              }
+            );
 
-          this.setState({
-            selectedComments: [...selectedVideoComment]
-          });
+            this.setState({
+              selectedComments: [...selectedVideoComment]
+            });
+          }
         });
       })
       .catch(e => {
@@ -156,7 +158,7 @@ class Videos extends Component {
         <MDBContainer style={{ marginTop: 6 + 'rem' }} fluid>
           <MDBRow>
             <MDBCol sm='7' className='mx-auto mb-5'>
-              {this.state.selectedVideo.title ? (
+              {this.state.selectedVideo ? (
                 <SelectedVideo
                   comments={this.state.selectedComments}
                   handleDelete={this.deletedVideo}

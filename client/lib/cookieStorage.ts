@@ -20,6 +20,8 @@ export const removeCookie = () => {
 
 export const getCookie = (prop: string, ctx: any) => {
   if (typeof window !== 'undefined') {
+    console.log('THIS CONTEXT', ctx);
+    console.log('THIS CONTEXT SHOW', nextCookie(ctx)[`superstar_${prop}`]);
     return nextCookie(ctx)[`superstar_${prop}`];
   }
 };

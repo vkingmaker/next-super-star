@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon server.ts",
     "build": "next build",
-    "start": "NODE_ENV=production node server.ts"
+    "start": "NODE_ENV=production node server.ts",
+    "heroku-postbuild": "npm run build"
   },
   "author": "Monday Victor Akubudike",
   "license": "ISC",
