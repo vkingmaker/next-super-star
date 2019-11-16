@@ -1,0 +1,63 @@
+{
+  "name": "superstar-api",
+  "version": "1.0.0",
+  "description": "superstar-api is a RESTFul API for a typical web application built with a musician (my bosses favorite - DBanj) in mind.",
+  "main": "./dist/server.js",
+  "scripts": {
+    "build": "node_modules/.bin/tsc -pretty -p .",
+    "start": "npm run clean && npm run build && serverless offline start",
+    "clean": "rm -rf ./build"
+  },
+  "keywords": [
+    "nextjs",
+    "react",
+    "nodejs",
+    "MDBReact"
+  ],
+  "author": "Monday Victor Akubudike",
+  "license": "ISC",
+  "dependencies": {
+    "amazon-cognito-identity-js": "^3.1.2",
+    "aws-sdk": "^2.552.0",
+    "bcrypt": "^3.0.6",
+    "cognito-express": "^2.0.16",
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "dynamodb-data-types": "^3.0.1",
+    "dynamoose": "^1.10.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.1",
+    "mongoose-unique-validator": "^2.0.3",
+    "morgan": "^1.9.1",
+    "node-fetch": "^2.6.0",
+    "node-uuid": "^1.4.8",
+    "serverless-aws-documentation": "^1.1.0",
+    "serverless-dynamodb-local": "^0.2.35",
+    "serverless-http": "^1.8.0",
+    "serverless-offline": "^3.31.3",
+    "serverless-plugin-typescript-express": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/cors": "^2.8.6",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.17.1",
+    "@types/jsonwebtoken": "^8.3.3",
+    "@types/mongoose": "^5.5.17",
+    "@types/mongoose-unique-validator": "^1.0.2",
+    "@types/morgan": "^1.7.37",
+    "@types/node": "^12.7.5",
+    "@types/node-fetch": "^2.5.2",
+    "@types/node-uuid": "0.0.28",
+    "cross-env": "^5.2.1",
+    "install": "^0.13.0",
+    "npm": "^6.12.0",
+    "rimraf": "^3.0.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.3"
+  },
+  "resolutions": {
+    "dynamodb-localhost": "0.0.7"
+  }
+}
