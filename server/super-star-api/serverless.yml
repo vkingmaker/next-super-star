@@ -1,0 +1,247 @@
+service: super-star-api
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+  - serverless-aws-documentation
+
+Globals:
+  Api:
+    # Allows an application running locally on port 8080 to call this API
+    Cors:
+      AllowMethods: "'OPTIONS,POST,GET'"
+      AllowHeaders: "'Content-Type','x-access-token'"
+      AllowOrigin: "'http://localhost:3000'"
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      heapInitial: 200m
+      heapMax: 1g
+      migrate: true
+      seed: true
+      convertEmptyValues: true
+  userTableName: "User"
+  tourTableName: "Tour"
+  videoTableName: "Video"
+  feedbackTableName: "Feedback"
+  subscriptionTableName: "Subscription"
+  photoTableName: "Photo"
+  musicTableName: "Music"
+
+documentation:
+  info:
+    version: "1"
+    name: "Super star application (API)"
+    description: "RESTful API for super star application"
+  models:
+    - name: "Video"
+      description: "Creae a video"
+      contentType: "application/json"
+      schema:
+        type: "object"
+        properties:
+          description:
+            type: "string"
+          completed:
+            type: "boolean"
+          creator:
+            type: "string"
+    - name: "SuccessfulAuthResponse"
+      description: "Log in successful"
+      contentType: "application/json"
+      schema:
+        type: "object"
+        properties:
+          idToken:
+            type: "string"
+          accessToken:
+            type: "string"
+    - name: "LoginRequest"
+      contentType: "application/json"
+      schema:
+        type: "object"
+        properties:
+          email:
+            type: "string"
+          password:
+            type: "string"
+    - name: "SignUpRequest"
+      contentType: "application/json"
+      schema:
+        type: "object"
+        properties:
+          email:
+            type: "string"
+          name:
+            type: "string"
+          password:
+            type: "string"
+    - name: "AccountVerificationRequest"
+      contentType: "application/json"
+      schema:
+        type: "object"
+        properties:
+          email:
+            type: "string"
+          code:
+            type: "string"
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: prod
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:DescribeTable
+        - dynamodb:CreateTable
+      Resource:
+        - { "Fn::GetAtt": ["TourDynamoDBTable", "Arn"] }
+        - { "Fn::GetAtt": ["VideoDynamoDBTable", "Arn"] }
+        - { "Fn::GetAtt": ["UserDynamoDBTable", "Arn"] }
+        - { "Fn::GetAtt": ["FeedbackDynamoDBTable", "Arn"] }
+        - { "Fn::GetAtt": ["SubscriptionDynamoDBTable", "Arn"] }
+        - { "Fn::GetAtt": ["PhotoDynamoDBTable", "Arn"] }
+        - { "Fn::GetAtt": ["MusicDynamoDBTable", "Arn"] }
+
+functions:
+  app:
+    handler: "build/server.handler"
+    events: ${file(http-events.yml)}
+    environment:
+      IS_OFFLINE: "false"
+      USER_POOL_ID: "us-east-1_HwQEZmfQM"
+      USER_POOL_CLIENT_ID: YOUR-CLIENT-POOL-ID-FROM-AWS-GOES-HERE
+
+resources:
+  Resources:
+    UserDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: email
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.userTableName}
+    TourDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: venue
+            AttributeType: S
+        KeySchema:
+          - AttributeName: venue
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tourTableName}
+    VideoDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: title
+            AttributeType: S
+        KeySchema:
+          - AttributeName: title
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.videoTableName}
+    FeedbackDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.feedbackTableName}
+    SubscriptionDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.subscriptionTableName}
+    PhotoDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: caption
+            AttributeType: S
+        KeySchema:
+          - AttributeName: caption
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.photoTableName}
+    MusicDynamoDBTable:
+      Type: "AWS::DynamoDB::Table"
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: title
+            AttributeType: S
+        KeySchema:
+          - AttributeName: title
+            KeyType: HASH
+          - AttributeName: id
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.musicTableName}

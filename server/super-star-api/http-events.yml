@@ -1,0 +1,486 @@
+- http:
+    path: /starrecords/videos
+    method: get
+    cors: true
+    documentation:
+      summary: "Rtrieve all the videos"
+      description: "Fetches all videos from the Videos table"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/videos
+    method: post
+    cors: true
+    documentation:
+      summary: "Create Video Record"
+      description: "Creates a new video"
+      methodResponses:
+        - statusCode: "201"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/videos/{videoId}
+    method: get
+    cors: true
+    documentation:
+      summary: "Retrieve Video"
+      description: "Retrieve a video of a given id"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            "application/json": { { model: Video } }
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad request"
+      pathParams:
+        - name: "id"
+          description: "ID of the Video"
+          required: "true"
+          allowValues: "true"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/videos/{videoId}
+    method: delete
+    cors: true
+    documentation:
+      summary: "Delete Video"
+      description: "Delete a video of a given id"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      pathParams:
+        - name: "id"
+          description: "ID of the Video"
+          required: "true"
+          allowValues: "true"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+
+- http:
+    path: /starrecords/videos/{videoId}/like
+    method: patch
+    cors: true
+    documentation:
+      summary: "Update Video"
+      description: "Like a Video of a given id"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      pathParams:
+        - name: "id"
+          description: "ID of the video"
+          required: "true"
+          allowValues: "true"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/videos/{videoId}/comment
+    method: post
+    cors: true
+    documentation:
+      summary: "Add comment to a particular video"
+      description: "Add comment a Video of a given id"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      pathParams:
+        - name: "id"
+          description: "ID of the video"
+          required: "true"
+          allowValues: "true"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: starrecords/{mediaType}/comments
+    method: get
+    cors: true
+    documentation:
+      summary: "Retrieve comment to a particular media Type"
+      description: "Retrieve comment of a given media type"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      pathParams:
+        - name: "id"
+          description: "ID of the video"
+          required: "true"
+          allowValues: "true"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/tours
+    method: get
+    cors: true
+    documentation:
+      summary: "Retrieve Tours"
+      description: "Retrieve Tours"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/tours
+    method: post
+    cors: true
+    documentation:
+      summary: "Add Tours"
+      description: "Add Tours"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/subscription
+    method: post
+    cors: true
+    documentation:
+      summary: "Subscribe a user"
+      description: "Marks a user a subscribed user"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/photos
+    method: post
+    cors: true
+    documentation:
+      summary: "Add a photo"
+      description: "Enables an Admin to add a photo"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/photos
+    method: get
+    cors: true
+    documentation:
+      summary: "Retrieve a photo"
+      description: "Get all the photos"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/photos/{photoId}
+    method: delete
+    cors: true
+    documentation:
+      summary: "Delete photo"
+      description: "Delete a photo of a given id"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      pathParams:
+        - name: "id"
+          description: "ID of the Video"
+          required: "true"
+          allowValues: "true"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/photos/{photoId}/like
+    method: patch
+    cors: true
+    documentation:
+      summary: "Update Photo"
+      description: "Like a Photo of a given id"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      pathParams:
+        - name: "id"
+          description: "ID of the video"
+          required: "true"
+          allowValues: "true"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/musics
+    method: post
+    cors: true
+    documentation:
+      summary: "Add a Music"
+      description: "Enables an Admin to add a music"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: true
+- http:
+    path: /starrecords/musics
+    method: get
+    cors: true
+    documentation:
+      summary: "Retrieve a musics"
+      description: "Get all the musics"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/musics/{musicId}
+    method: delete
+    cors: true
+    documentation:
+      summary: "Delete music"
+      description: "Delete a music of a given id"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      pathParams:
+        - name: "id"
+          description: "ID of the Video"
+          required: "true"
+          allowValues: "true"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+- http:
+    path: /starrecords/musics/{musicId}/like
+    method: patch
+    cors: true
+    documentation:
+      summary: "Update Photo"
+      description: "Like a Photo of a given id"
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful!"
+        - statusCode: "401"
+          responseBody:
+            description: "Unauthenticated!"
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+      pathParams:
+        - name: "id"
+          description: "ID of the video"
+          required: "true"
+          allowValues: "true"
+      requestHeaders:
+        - name: "x-api-key"
+          description: "ID token retrieved after successful log in"
+          required: "true"
+
+- http:
+    path: /register
+    method: post
+    cors: true
+    documentation:
+      summary: "Sign up to app"
+      description: "Create user"
+      requestModels:
+        "application/json": LoginRequest
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful! User authenticated"
+          responseModels:
+            "application/json": SuccessfulAuthResponse
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+- http:
+    path: /login
+    method: post
+    cors: true
+    documentation:
+      summary: "Sign in to app"
+      description: "Logs user into account"
+      requestModels:
+        "application/json": LoginRequest
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful! User authenticated"
+          responseModels:
+            "application/json": SuccessfulAuthResponse
+        - statusCode: "400"
+          responseBody:
+            description: "Bad Request"
+- http:
+    path: /verify
+    method: post
+    cors: true
+    documentation:
+      summary: "Verify account"
+      description: "Verify your account after successful sign up"
+      requestModels:
+        "application/json": AccountVerificationRequest
+      methodResponses:
+        - statusCode: "200"
+          responseBody:
+            description: "Successful! Account Verified"
+        - statusCode: "400"
+          responseBody:
+            description: "Error verifying account"
